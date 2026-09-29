@@ -233,3 +233,65 @@ DROP DATABASE IF EXISTS dbOficinaHomologacao;   -- apaga o banco se existir
 DROP DATABASE IF EXISTS dbEscolaHomologacao;    -- apaga o banco se existir
 DROP DATABASE IF EXISTS dbVeterinaria;          -- apaga o banco se existir
 SHOW DATABASES;
+
+-- exercicio 21
+
+/* relacionamento 1:N viram chave estrangeira do lado N
+relacionamentos N:N viram tabelas associativas
+produto_fornecedor e item_pedido
+produto e estoque é 1:! (um produto por estoque)
+o modelo esta normalizado e pronto para implemetar*/
+
+
+-- exercicio 22
+create database dbHorizonte;
+show databases;
+use dbHorizonte;
+
+-- exercicio 23
+create table Estado(
+id_Estado int auto_increment primary key,
+Sigla char(2) not null unique,
+Nome varchar(50) unique
+);
+create table Cidade(
+id_Cidade int auto_increment primary key,
+nome varchar(100) not null,
+id_Estado  int not null,
+foreign key (id_Estado) references estado (id_estado)
+);
+show tables;
+describe Estado;
+describe Cidade;
+
+-- exercicio 24
+create table cliente(
+id_cliente int auto_increment primary key,
+nome varchar(150) not null,
+documento varchar (14) not null unique,
+tipo_pessoa char(1) not null
+             check (tipo_pessoa in ("f", "j")),
+telefone varchar (20),
+email varchar (150),
+data_nascimento date,
+data_cadrasto datetime,
+ativo boolean default true
+);
+create table endereco(
+id_endereço int auto_increment primary key,
+id_cliente int not null,
+logadouro varchar(150) not null,
+numero varchar(10) not null,
+complemeto varchar(100),
+cep char (8) not null,
+id_cidade int not null,
+foreign key(id_cliente) references cliente (id_cliente),
+foreign key(id_cidade) references cidade (id_cidade)
+);
+describe cliente;
+describe cidade;
+
+-- exercicio 25
+
+
+
